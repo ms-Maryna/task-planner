@@ -22,18 +22,20 @@ class TaskController extends Controller
         return view('tasks.create');
     }
 
+
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'due_date' => 'nullable|date',
-        ]);
+{
+    $validated = $request->validate([
+        'title' => 'required|string|min:3|max:255',
+        'description' => 'nullable|string|max:1000',
+        'due_date' => 'nullable|date|after_or_equal:today',
+        'due_time' => 'nullable|date_format:H:i',
+    ]);
 
-        Auth::user()->tasks()->create($validated);
-        return redirect()->route('tasks.index');
-    }
-
+    Auth::user()->tasks()->create($validated);
+    return redirect()->route('tasks.index')
+        ->with('success', 'Task created successfully!');
+}
     public function edit(string $id)
     {
         $task = Task::findOrFail($id);
@@ -53,7 +55,7 @@ class TaskController extends Controller
         $task->update($validated);
         return redirect()->route('tasks.index');
     }
-
+     
     public function destroy(string $id)
     {
         $task = Task::findOrFail($id);
