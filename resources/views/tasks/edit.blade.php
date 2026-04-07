@@ -57,7 +57,7 @@
                                     Time
                                 </label>
                                 <input type="time" name="due_time"
-                                    value="{{ old('due_time', $task->due_time) }}"
+                                    value="{{ old('due_time', substr($task->due_time, 0, 5)) }}"
                                     class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400">
                                 @error('due_time')
                                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
