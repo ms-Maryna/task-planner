@@ -15,10 +15,28 @@
                         </div>
                     @endif
 
+                    {{-- Filter buttons --}}
+                    @if(!$tasks->isEmpty())
+                        <div class="flex gap-3 mb-6 justify-center">
+                            <button onclick="filterTasks('all')" id="btn-all"
+                                class="px-4 py-1 rounded-full text-sm font-medium bg-indigo-600 text-white filter-btn">
+                                All
+                            </button>
+                            <button onclick="filterTasks('incomplete')" id="btn-incomplete"
+                                class="px-4 py-1 rounded-full text-sm font-medium border border-gray-300 text-gray-600 filter-btn">
+                                Incomplete
+                            </button>
+                            <button onclick="filterTasks('complete')" id="btn-complete"
+                                class="px-4 py-1 rounded-full text-sm font-medium border border-gray-300 text-gray-600 filter-btn">
+                                Completed
+                            </button>
+                        </div>
+                    @endif
+
                     @if($tasks->isEmpty())
                         <p class="text-center text-gray-500 mb-8">You have no tasks yet.</p>
                     @else
-                        <table class="w-full border-collapse mb-8">
+                        <table class="w-full border-collapse mb-8" id="tasksTable">
                             <thead>
                                 <tr class="border-b border-gray-200">
                                     <th class="text-left py-3 px-4 text-sm font-medium text-gray-600">Title</th>
@@ -29,7 +47,8 @@
                             </thead>
                             <tbody>
                                 @foreach($tasks as $task)
-                                    <tr class="border-t border-gray-100 hover:bg-gray-50">
+                                    <tr class="border-t border-gray-100 hover:bg-gray-50 task-row"
+                                        data-completed="{{ $task->is_completed ? 'true' : 'false' }}">
                                         <td class="py-3 px-4">
                                             <div class="flex items-center gap-3">
                                                 <input type="checkbox"
@@ -71,7 +90,8 @@
 
                     <div class="text-center">
                         <a href="{{ route('tasks.create') }}"
-                            class="px-6 py-2 border border-gray-300 rounded-md text-gray-600 hover:bg-gray-100">
+                            class="inline-flex items-center gap-2 px-6 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 font-medium">
+                            <span>＋</span>
                             {{ $tasks->isEmpty() ? 'Create your first task' : 'Create new task' }}
                         </a>
                     </div>
@@ -80,4 +100,32 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function filterTasks(filter) {
+            const rows = document.querySelectorAll('.task-row');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-indigo-600', 'text-white');
+                btn.classList.add('border', 'border-gray-300', 'text-gray-600');
+            });
+
+            document.getElementById('btn-' + filter).classList.add('bg-indigo-600', 'text-white');
+            document.getElementById('btn-' + filter).classList.remove('border', 'border-gray-300', 'text-gray-600');
+
+            rows.forEach(row => {
+                const completed = row.dataset.completed === 'true';
+                if (filter === 'all') {
+                    row.style.display = '';
+                } else if (filter === 'complete' && completed) {
+                    row.style.display = '';
+                } else if (filter === 'incomplete' && !completed) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+    </script>
 </x-app-layout>
