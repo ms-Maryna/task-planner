@@ -22,5 +22,7 @@
             class="text-sm text-gray-600 hover:text-red-600 font-medium">
             Log out
         </button>
+        <a href="{{ route('profile.edit') }}"
+        class="text-sm text-gray-600 hover:text-indigo-600 font-medium">Profile</a>
     </form>
 </nav>
