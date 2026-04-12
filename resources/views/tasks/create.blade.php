@@ -24,6 +24,7 @@
                             </label>
                             <input type="text" name="title" id="title"
                                 value="{{ old('title') }}"
+                                placeholder="e.g. Finish assignment, Buy groceries..."
                                 required minlength="3" maxlength="255"
                                 class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400">
                             <span id="titleError" class="text-red-500 text-xs mt-1 hidden">
@@ -40,6 +41,7 @@
                                 Description
                             </label>
                             <textarea name="description" id="description" maxlength="1000" rows="3"
+                                placeholder="Add more details about this task (optional)..."
                                 class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400">{{ old('description') }}</textarea>
                         </div>
 
