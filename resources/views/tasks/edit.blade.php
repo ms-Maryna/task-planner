@@ -19,6 +19,7 @@
                             </label>
                             <input type="text" name="title" id="title"
                                 value="{{ old('title', $task->title) }}"
+                                placeholder="Enter task title..."
                                 required minlength="3" maxlength="255"
                                 class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400">
                             <span id="titleError" class="text-red-500 text-xs mt-1 hidden">
@@ -35,6 +36,7 @@
                                 Description
                             </label>
                             <textarea name="description" id="description" maxlength="1000" rows="3"
+                                placeholder="Update task details (optional)..."
                                 class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400">{{ old('description', $task->description) }}</textarea>
                         </div>
 
@@ -57,7 +59,7 @@
                                     Time
                                 </label>
                                 <input type="time" name="due_time"
-                                    value="{{ old('due_time', substr($task->due_time, 0, 5)) }}"
+                                    value="{{ old('due_time', $task->due_time) }}"
                                     class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400">
                                 @error('due_time')
                                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -96,7 +98,6 @@
     <script>
         document.getElementById('editTaskForm').addEventListener('submit', function(e) {
             let valid = true;
-
             const title = document.getElementById('title').value.trim();
             const titleError = document.getElementById('titleError');
             if (title.length < 3) {
@@ -105,7 +106,6 @@
             } else {
                 titleError.classList.add('hidden');
             }
-
             if (!valid) e.preventDefault();
         });
     </script>
