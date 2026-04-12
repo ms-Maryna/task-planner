@@ -16,13 +16,16 @@
 
     <span class="ml-auto text-sm text-gray-500">{{ Auth::user()->email }}</span>
 
+    <a href="{{ route('profile.edit') }}"
+        class="text-sm text-gray-600 hover:text-indigo-600 font-medium">
+        Profile
+    </a>
+
     <form method="POST" action="{{ route('logout') }}">
         @csrf
         <button type="submit"
             class="text-sm text-gray-600 hover:text-red-600 font-medium">
             Log out
         </button>
-        <a href="{{ route('profile.edit') }}"
-        class="text-sm text-gray-600 hover:text-indigo-600 font-medium">Profile</a>
     </form>
 </nav>
