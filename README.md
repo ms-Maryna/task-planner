@@ -153,6 +153,7 @@ The project uses feature branches following the structure:
 - `planning` — UX and planning documents (Stage 1)
 - `implement-authentication` — authentication feature
 - `implement-crud-tasks` — task CRUD feature
+- `home_page` — Home Page with focus tips
 
 ---
 
