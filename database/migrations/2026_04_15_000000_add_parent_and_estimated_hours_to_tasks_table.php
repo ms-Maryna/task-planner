@@ -9,7 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('tasks', function (Blueprint $table) {
-            $table->unsignedBigInteger('parent_id')->nullable()->after('user_id');
+            $table->unsignedBigInteger('parent_id')->nullable()->index()->after('user_id');
             $table->decimal('estimated_hours', 4, 2)->nullable()->after('due_time');
 
             $table->foreign('parent_id')
