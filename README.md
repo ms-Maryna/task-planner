@@ -54,7 +54,7 @@ Task Planner solves this by providing a single platform where users can create, 
 - Email notifications
 - Calendar sync
 - Task priorities
-- Admin analytics
+
 
 ---
 
